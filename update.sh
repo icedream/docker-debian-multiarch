@@ -55,11 +55,13 @@ for version in "${versions[@]}"; do
 	suite="$(get_part "$dir" suite "$version")"
 	mirror="$(get_part "$dir" mirror '')"
 	script="$(get_part "$dir" script '')"
+	arch="$(get_part "$dir" arch '')"
 	
 	args=( -d "$dir" debootstrap )
 	[ -z "$variant" ] || args+=( --variant="$variant" )
 	[ -z "$components" ] || args+=( --components="$components" )
 	[ -z "$include" ] || args+=( --include="$include" )
+	[ -z "$arch" ] || args+=( --arch="$arch" )
 	
 	debootstrapVersion="$(debootstrap --version)"
 	debootstrapVersion="${debootstrapVersion##* }"
