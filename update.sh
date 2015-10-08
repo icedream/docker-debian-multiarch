@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eo pipefail
+shopt -s extglob
 
 declare -A backports=(
 	[wheezy]=1
@@ -12,9 +13,13 @@ cd "$(readlink -f "$(dirname "$BASH_SOURCE")")"
 
 versions=( "$@" )
 if [ ${#versions[@]} -eq 0 ]; then
-	versions=( */ )
+	versions=( !(docker|.*)/ )
 fi
 versions=( "${versions[@]%/}" )
+for version in "${versions[@]}"; do
+	echo "a - $version"
+done
+exit
 
 get_part() {
 	dir="$1"
